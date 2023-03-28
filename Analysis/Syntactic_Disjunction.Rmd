@@ -1,0 +1,111 @@
+---
+title: "Syntactic Disjunction"
+author: "Casey D. Felton"
+date: '2023-03-28'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+Load required libraries
+```{r, include= FALSE}
+library('tidyverse')
+library('ggplot2')
+library('lme4')
+library('lmerTest')
+library('boot')
+```
+
+
+# Experiment 1 Cleaning and Analysis
+Read in and join raw data with the key
+```{r}
+# Reads in data files
+data = read.csv('/Users/caseyfelton/Desktop/Githubs/syntactic_disjunction_html/Analysis/Data/Beta Data/beta.csv')
+
+# Factorizes and renames id column
+data = data %>% 
+  mutate(ID = as.factor(Condition_Item))
+
+# Select just the columns needed for analysis
+data = data %>% select(workerid, ID, chance)
+
+# Reads in key file
+key = read.csv('/Users/caseyfelton/Desktop/Githubs/syntactic_disjunction_html/Analysis/Resources/key.csv')
+
+# Factorizes IS column
+# Factorizes and renames id column
+key = key %>% 
+  mutate(ID = as.factor(Condition_Item))
+
+key = key %>%  select(-Condition_Item)
+
+# Joins key and data
+data = left_join(data, key, by = 'ID')
+```
+
+
+# Data Cleaning
+There are a total of 9 attention checking control items, each of which should result in either close to 0% or close to 100% chance ratings from participants who were paying attention. The following code block excludes participants who did not rate at least 5 out of the 6 control items as within 10% of either 0% or 100%, whichever was accurate. 
+```{r}
+#Filter just the 100% control items
+cntr_100 = data %>% filter(Experimental == 'And' | Experimental == 'Then')
+#Filter just the 0% control items
+cntr_0 = data %>% filter(Experimental == 'But Not')
+
+#Adds a column for accuracy
+cntr_100$correct = cntr_100$chance >= 90
+cntr_0$correct = cntr_0$chance <= 10
+
+#Combines the items
+accuracy_check = rbind(cntr_0, cntr_100)
+
+#Creates a table with the aggregated mean accuracy for each participant
+accuracy_table = accuracy_check %>% group_by(workerid) %>% summarise(mean_accuracy = mean(correct))
+
+#Join the accuracy table to the rest of the data
+data = left_join(data, accuracy_table, by = 'workerid')
+
+#Filter out participants who got less than 5/6 correct (Starting with 50, 8 are excluded, leaving 42)
+data = data %>% filter(mean_accuracy > .8)
+data = data %>% filter(Experimental == "experimental")
+```
+
+# Overview of Analysis
+There were a few research questions we most wanted to test in this experiment. First, does ellipsis result in more inclusive readings of disjunctions? Second, is it the ellipsis itself or iconicity that leads to the effect? Lastly, does ellipsis length or the specific constituents being elided impact judgements?
+
+The following code aggregates group means, standard deviations, and standard errors for each item
+```{r}
+means = data %>% 
+  group_by(Elided) %>% 
+  summarise(Mean_Chance = mean(chance),
+            Standard_Deviation = sd(chance),
+            Standard_Error = Standard_Deviation/sqrt(length(unique(data$workerid))))
+print(means)
+```
+
+Some graphing
+```{r}
+#Dot plot showing elided vs non-elided
+g = ggplot(data = data, aes(Elided, chance))
+g + geom_point()
+
+# Including iconicity
+g2 = ggplot(data = data, aes(Iconicity, chance)) +
+  geom_point(aes(fill = Elided)) + scale_color_manual(values = c("0" = "blue", "1" = "red"))
+```
+
+This model tests the effect ellipsis and iconicity:
+```{r}
+model_1 = lm(chance ~ Elided + Iconicity + (1|workerid) + (1|Item), data = data)
+summary(model_1)
+```
+
+This model tests the more complex types, but there can no longer be a random intercept by item:
+```{r}
+model_2 = lm(chance ~ Elipsis_Type + Iconicity + (1|workerid), data = data)
+summary(model_2)
+```
