@@ -144,7 +144,7 @@ Item,Condition_Item,Context,Sentence,Question,Condition,Con_Length,Overall_Lengt
 47,47_filler,N/A,Joe accidentally cut his finger and his palm while dicing onions. ,"Based on the sentence, how possible is it that he did both?",And,filler,filler,filler
 48,48_filler,N/A,"In her youth, Jane once climbed Mount Everest and once climbed Mount Fuji. ","Based on the sentence, how possible is it that she did both?",And,filler,filler,filler
 49,49_filler,N/A,"Joe was once an alcoholic, but not a drug addict. ","Based on the sentence, how possible is it that he was both?",But_Not,filler,filler,filler
-50,50_filler,N/A,"Jane went to the salon for a manicure, but she did not got to the salon for a pedicure. ","Based on the sentence, how possible is it that she did both?",But_Not,filler,filler,filler
+50,50_filler,N/A,"Jane went to the salon for a manicure, but she did not go to the salon for a pedicure. ","Based on the sentence, how possible is it that she did both?",But_Not,filler,filler,filler
 51,51_filler,N/A,"Joe ordered a new jacket from Amazon, but he did not order a new hat from Amazon. ","Based on the sentence, how possible is it that he did both?",But_Not,filler,filler,filler
 52,52_filler,N/A,Jane produces a true crime podcast but does not produce a political commentary podcast. ,"Based on the sentence, how possible is it that she does both?",But_Not,filler,filler,filler
 53,53_filler,N/A,Joe decided to become a vegetarian and signed up to volunteer at the local animal shelter. ,"Based on the sentence, how possible is it that he did both?",And,filler,filler,filler

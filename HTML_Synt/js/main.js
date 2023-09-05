@@ -1,8 +1,8 @@
 
 let practiceTests = [
-  { A: "Mike is a professor but not a linguist.", B:"Based on the sentence, how possible is it that Mike is both a professor and a linguist?" , Explanation: "To us, after reading the sentence it seems impossible that Mike is both a professor and a linguist. We recommend somewhere on the left end of the slider, maybe near the end."},
-  { A: "David is a chef and a business owner.", B:'Based on the sentence, how possible is it that David is both a chef and a business owner?', Explanation: "To us, it seems like this must be the case, so we recommend an answer at the far right end of the slider." },
-  { A: "Feel free to take a free T-shirt or hat.", B: "Based on the sentence, how possible is it that the speaker meant you could take both a T-shirt and a hat?", Explanation: "We're not sure about this one, so just answer based on your intuitions."}
+  { A: "Mike is a professor but not a linguist.", B:"Based on the sentence, how possible is it that Mike is both a professor and a linguist?" , Explanation: "After reading the sentence it seems impossible that Mike is both a professor and a linguist. The correct response is near the left end of the slider."},
+  { A: "David is a chef and a business owner.", B:'Based on the sentence, how possible is it that David is both a chef and a business owner?', Explanation: "This must be the case, so the correct response is at the far right end of the slider." },
+  { A: "Feel free to take a free T-shirt or hat.", B: "Based on the sentence, how possible is it that the speaker meant you could take both a T-shirt and a hat?", Explanation: "There's no objectively right answer for sentences like this one, so just adjust the slider based on you intuitions."}
 ]
 
 function getRandomIntInclusive(min, max) {
@@ -15,16 +15,16 @@ let GIST_LINK;
 
 let group = getRandomIntInclusive(1, 4)
 switch (group) {
-  case 1: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/bc05b43aa99a79b7e3c41d827fef91ac/raw/43867c864e566ffd010833688a65bf5f0aad6bea/SynDis_LS1.json';
+  case 1: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/bc05b43aa99a79b7e3c41d827fef91ac/raw/8194510796e45533015afa4c1f6a8852a103438d/SynDis_LS1.json';
     break;
 
-  case 2: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/282545dd162718d6833374f5c2793969/raw/37236a2b432db9e9a02b4ff7a7f4cb6039aec970/SynDis_LS2.json';
+  case 2: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/282545dd162718d6833374f5c2793969/raw/72388ccd382b0d18225dbf33562a63ecda4bc635/SynDis_LS2.json';
     break;
 
-  case 3: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/eceb7e68dcbf539ef5f327de09bb7af1/raw/25e4bb66010ceb29129c76b44a6b67e78f7fc956/SynDis_LS3.json';
+  case 3: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/eceb7e68dcbf539ef5f327de09bb7af1/raw/c6f617a9db7779abd92c6c7f0443b9f2053072a5/SynDis_LS3.json';
     break;
 
-  case 4: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/b92612f1bd22bb01c8448ed331c5ee8e/raw/b615d40eb3fd67cfa2ee91fb8c7f38e6b4233e3c/SynDis_LS4.json';
+  case 4: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/b92612f1bd22bb01c8448ed331c5ee8e/raw/b963a9a0f50e893fa8fe39e3d48852faa6c56ced/SynDis_LS4.json';
     break;
 }
 

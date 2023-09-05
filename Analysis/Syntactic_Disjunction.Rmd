@@ -21,7 +21,7 @@ library('ggplot2')
 Read in and join raw data with the key
 ```{r}
 # Reads in data files
-data = read.csv('/Users/caseyfelton/Desktop/Githubs/syntactic_disjunction_html/Analysis/Data/Beta Data/beta.csv')
+data = read.csv('/Users/caseyfelton/Desktop/Githubs/syntactic_disjunction_html/Analysis/Data/Beta Data/beta_Sep5.csv')
 
 # Factorizes and renames id column
 data = data %>% 
@@ -67,7 +67,7 @@ accuracy_table = accuracy_check %>% group_by(workerid) %>% summarise(mean_accura
 data = left_join(data, accuracy_table, by = 'workerid')
 
 #Filter out participants who got less than 5/6 correct (Starting with 50, 8 are excluded, leaving 42)
-data = data %>% filter(mean_accuracy > .8)
+data = data %>% filter(mean_accuracy > .95)
 data = data %>% filter(Group != "filler")
 ```
 
@@ -76,31 +76,78 @@ There were a few research questions we most wanted to test in this experiment. F
 
 The following code aggregates group means, standard deviations, and standard errors for each item
 ```{r}
-means = data %>% 
+as.factor(data$Condition)
+data$Condition = factor(data$Condition, levels=c('C_Proper', 'C_Pronoun', 'VP', 'NP'))
+
+means_contype = data %>% 
   group_by(Condition) %>% 
   summarise(Mean_Chance = mean(chance),
             Standard_Deviation = sd(chance),
             Standard_Error = Standard_Deviation/sqrt(length(unique(data$workerid))))
-print(means)
+print(means_contype)
 ```
 
-Generates a graph with each column being an item, error bars are +/- 2 SE, fill is by condition
+The following code summarizes the effect of overall constituent length similarly
 ```{r}
-graph_data = left_join(means, key, by = 'ID') %>% mutate(ID = fct_reorder(ID, Mean_Chance))
+as.factor(data$Con_Length)
+data$Con_Length = factor(data$Con_Length, levels=c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
 
-g = ggplot(graph_data, aes(ID, Mean_Chance))
-g = g + geom_col(position = "dodge", aes(fill = Condition)) + labs(title = 'Means and Variation in Inclusivity Ratings by Item', x = 'Items', y = 'Mean Inclusivity Rating (%)')+
-  geom_errorbar(width = .5,
-                aes(ymin = Mean_Chance - Standard_Error*2, ymax = Mean_Chance + Standard_Error*2),
-                position = position_dodge(.9)) +
-               theme_bw() +
-               theme(axis.text.x = element_blank()) + labs(fill = "Condition")
-
-
+means_Length = data %>% 
+  group_by(Con_Length) %>% 
+  summarise(Mean_Chance = mean(chance),
+            Standard_Deviation = sd(chance),
+            Standard_Error = Standard_Deviation/sqrt(length(unique(data$workerid))))
+print(means_Length)
 ```
+# The following code makes a graphic of the mean inclusivity by disjunct constituent type
+```{r}
+### Retrieve means and append key
+item_means = data %>% 
+  group_by(ID) %>% 
+  summarise(Mean = mean(chance))
+graphdata_1 = left_join(item_means, key, by= 'ID')
+
+### Reorder Factors 
+as.factor(graphdata_1$Con_Length)
+graphdata_1$Con_Length = factor(graphdata_1$Con_Length, levels=c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+as.factor(graphdata_1$Condition)
+graphdata_1$Condition = factor(graphdata_1$Condition, levels=c('C_Proper', 'C_Pronoun', 'VP', 'NP'))
+
+### Rename Conditions
+graphdata_1 = graphdata_1 %>% mutate(Condition = fct_recode(Condition, 'Clause with Proper Name' = 'C_Proper'))
+graphdata_1 = graphdata_1 %>% mutate(Condition = fct_recode(Condition, 'Clause with Pronoun' = 'C_Pronoun'))
+graphdata_1 = graphdata_1 %>% mutate(Condition = fct_recode(Condition, 'Verb Phrase' = 'VP'))
+graphdata_1 = graphdata_1 %>% mutate(Condition = fct_recode(Condition, 'Noun Phrase' = 'NP'))
+
+### Plot
+g2 = ggplot(aes(Condition, Mean), data = graphdata_1)
+g2 = g2 + geom_violin() + geom_point(alpha=0.6) +
+  labs(title = 'Inclusivity Ratings by Disjunct Constituent Type', x = 'Constituent Type', y = 'Mean Inclusivity Ratings (%)') + theme_bw()
+g2
+```
+# The following code makes a graphic of the mean inclusivity by constituent length
+```{r}
+### Plot
+g3 = ggplot(aes(Con_Length, Mean), data = graphdata_1)
+g3 = g3 + geom_violin() + geom_point(alpha=0.6) +
+  labs(title = 'Inclusivity Ratings by Disjunct Constituent Type', x = 'Constituent Length (# of words)', y = 'Mean Inclusivity Ratings (%)') + theme_bw()
+g3
+```
+
+
+# The following code creates a combined graphic where each point is the mean inclusivity rating for a specific item x condition pair. The Y axis is the inclusivity, the X axis is the length of the disjoint constituents, and the color fill is the constituent type.
+```{r}
+### Plot
+g1 = ggplot(aes(Con_Length, Mean), data = graphdata_1)
+g1 = g1 + geom_point(aes(x = Con_Length, y = Mean, color = Condition)) +
+  labs(title = 'Inclusivity Ratings by Disjunct Length and Type', x = 'Disjunct Length', y = 'Mean Inclusivity Ratings (%)', color = 'Disjunct Constituent Type') + theme_bw()
+g1
+```
+
+
 
 This model tests the effect ellipsis and iconicity:
 ```{r}
-model_1 = lm(chance ~ Condition + Con_Length + Overall_Length + (1|workerid) + (1|Item), data = data)
+model_1 = lm(chance ~ Condition + Con_Length + Overall_Length + Condition*Con_length + (1|workerid) + (1+Condition|Item), data = data)
 summary(model_1)
 ```
