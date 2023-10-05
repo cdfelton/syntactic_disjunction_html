@@ -1,6 +1,6 @@
 
 let practiceTests = [
-  { A: "Mike is a professor but not a linguist.", B:"Based on the sentence, how possible is it that Mike is both a professor and a linguist?" , Explanation: "After reading the sentence it seems impossible that Mike is both a professor and a linguist. The correct response is near the left end of the slider."},
+  { A: "Mike is a professor but not a linguist.", B:"Based on the sentence, how possible is it that Mike is both a professor and a linguist?" , Explanation: "After reading the sentence it seems impossible that Mike is both a professor and a linguist. The correct response is at the left end of the slider."},
   { A: "David is a chef and a business owner.", B:'Based on the sentence, how possible is it that David is both a chef and a business owner?', Explanation: "This must be the case, so the correct response is at the far right end of the slider." },
   { A: "Feel free to take a free T-shirt or hat.", B: "Based on the sentence, how possible is it that the speaker meant you could take both a T-shirt and a hat?", Explanation: "There's no objectively right answer for sentences like this one, so just adjust the slider based on you intuitions."}
 ]

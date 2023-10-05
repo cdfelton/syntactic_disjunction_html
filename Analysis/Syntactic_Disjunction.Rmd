@@ -14,6 +14,8 @@ Load required libraries
 ```{r, include= FALSE}
 library('tidyverse')
 library('ggplot2')
+library('lme4')
+library('lmerTest')
 ```
 
 
@@ -148,6 +150,6 @@ g1
 
 This model tests the effect ellipsis and iconicity:
 ```{r}
-model_1 = lm(chance ~ Condition + Con_Length + Overall_Length + Condition*Con_length + (1|workerid) + (1+Condition|Item), data = data)
+model_1 = lmer(chance ~ Condition + Con_Length + Condition*Con_length + (1 + Item|workerid) + (1|Item), data = data)
 summary(model_1)
 ```
