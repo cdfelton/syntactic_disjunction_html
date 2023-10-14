@@ -23,7 +23,7 @@ library('lmerTest')
 Read in and join raw data with the key
 ```{r}
 # Reads in data files
-data = read.csv('/Users/caseyfelton/Desktop/Githubs/syntactic_disjunction_html/Analysis/Data/Beta Data/beta_Sep5.csv')
+data = read.csv('/Users/caseyfelton/Desktop/Githubs/syntactic_disjunction_html/Analysis/Data/Real Data/10_subject_run.csv')
 
 # Factorizes and renames id column
 data = data %>% 
