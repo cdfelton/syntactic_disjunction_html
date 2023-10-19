@@ -1,8 +1,12 @@
 
 let practiceTests = [
-  { A: "Mike is a professor but not a linguist.", B:"Based on the sentence, how possible is it that Mike is both a professor and a linguist?" , Explanation: "After reading the sentence it seems impossible that Mike is both a professor and a linguist. The correct response is at the left end of the slider."},
-  { A: "David is a chef and a business owner.", B:'Based on the sentence, how possible is it that David is both a chef and a business owner?', Explanation: "This must be the case, so the correct response is at the far right end of the slider." },
-  { A: "Feel free to take a free T-shirt or hat.", B: "Based on the sentence, how possible is it that the speaker meant you could take both a T-shirt and a hat?", Explanation: "There's no objectively right answer for sentences like this one, so just adjust the slider based on you intuitions."}
+  { A: "Mike is a professor but not a linguist.", B:"Based on the sentence, how likely is it that he is both?" , Explanation: "Sentences like this have an obvious answer, it directly tells you that he IS NOT BOTH, so the correct response is all the way at the left end of the slider(0%). "},
+  { A: "David is a chef and a business owner.", B:'Based on the sentence, how likely is it that he is both?', Explanation: "Like the last example, this sentence also has an obvious answer. It directly tells you that David IS BOTH, so the correct answer is all the way at the right end of slider (100%)." },
+  { A: "John is signing or screaming.", B: "Based on the sentence, how likely is it that he is doing both?", Explanation: "To us, it seems pretty unlikely that someone would mean John was doing both based on this sentence, so the best answer is somewhere on the left side of slider."},
+  { A: "There is beer in the fridge or the ice-bucket.", B: "Based on the sentence, how likely is it that there is beer in both?", Explanation: "It seems pretty likely that there is beer in both places to us, so the best answer is somewhere on the right side of the slider."},
+  { A: "Martha is in love with Alf or Bert.", B: "Based on the sentence, how likely is it that she is in love with both?", Explanation: "It seems unlikely to us that the speaker meant that Martha is in love with both of them, so the best answer is on the left side of the slider."},
+  { A: "I’d like flowers or champagne.", B: "Based on the sentence, how likely is it that the speaker would like both?", Explanation: "To us, it seems like they would probably like both, so the best answer is on the right side of the slider. "},
+  { A: "Tomorrow, a linguist or a philosopher will come to see me.", B: "Based on the sentence, how likely is it that both will come see the speaker?", Explanation: "For many sentences there may not be an obvious answer, so just respond based on your intuitions."}
 ]
 
 function getRandomIntInclusive(min, max) {
