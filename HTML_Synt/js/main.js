@@ -20,16 +20,16 @@ let GIST_LINK;
 
 let group = getRandomIntInclusive(1, 4)
 switch (group) {
-  case 1: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/bc05b43aa99a79b7e3c41d827fef91ac/raw/8194510796e45533015afa4c1f6a8852a103438d/SynDis_LS1.json';
+  case 1: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/bc05b43aa99a79b7e3c41d827fef91ac/raw/b9517ac5361d1d0d8b91ed91198f72957c8bd944/SynDis_LS1.json';
     break;
 
-  case 2: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/282545dd162718d6833374f5c2793969/raw/72388ccd382b0d18225dbf33562a63ecda4bc635/SynDis_LS2.json';
+  case 2: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/282545dd162718d6833374f5c2793969/raw/76056511cadce88f1a1153cf79e7b8fa5bf4478c/SynDis_LS2.json';
     break;
 
-  case 3: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/eceb7e68dcbf539ef5f327de09bb7af1/raw/c6f617a9db7779abd92c6c7f0443b9f2053072a5/SynDis_LS3.json';
+  case 3: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/eceb7e68dcbf539ef5f327de09bb7af1/raw/2e848edc49d6a330932cee29c18e96b36543b2f1/SynDis_LS3.json';
     break;
 
-  case 4: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/b92612f1bd22bb01c8448ed331c5ee8e/raw/b963a9a0f50e893fa8fe39e3d48852faa6c56ced/SynDis_LS4.json';
+  case 4: GIST_LINK ='https://gist.githubusercontent.com/cdfelton/b92612f1bd22bb01c8448ed331c5ee8e/raw/36a44ca501e14279670be55c35379ad4d64efadc/SynDis_LS4.json';
     break;
 }
 
