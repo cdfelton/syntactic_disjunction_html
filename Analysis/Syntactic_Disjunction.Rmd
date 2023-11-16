@@ -23,7 +23,7 @@ library('lmerTest')
 Read in and join raw data with the key
 ```{r}
 # Reads in data files
-data = read.csv('/Users/caseyfelton/Desktop/Githubs/syntactic_disjunction_html/Analysis/Data/Real Data/10_subject_run.csv')
+data = read.csv('/Users/caseyfelton/Desktop/Githubs/syntactic_disjunction_html/Analysis/Data/Real Data/full_collection.csv')
 
 # Factorizes and renames id column
 data = data %>% 
@@ -44,6 +44,9 @@ key = key %>%  select(-Condition_Item)
 
 # Joins key and data
 data = left_join(data, key, by = 'ID')
+
+# Remove data from a previous version of the study (10 subjects were run, workerids 119-128) (Additionally, one trial run (wokerid 133) was run on the real data on 11/12, all 100% so it will be excluded by the attention check in the next code chunk.)
+data = filter(data, data$workerid != 119 & data$workerid != 120 & data$workerid != 121 & data$workerid != 122 & data$workerid !=  123 & data$workerid != 124 & data$workerid !=  125 & data$workerid !=126 & data$workerid != 127 & data$workerid !=  128)
 ```
 
 
@@ -68,8 +71,8 @@ accuracy_table = accuracy_check %>% group_by(workerid) %>% summarise(mean_accura
 #Join the accuracy table to the rest of the data
 data = left_join(data, accuracy_table, by = 'workerid')
 
-#Filter out participants who got less than 5/6 correct (Starting with 50, 8 are excluded, leaving 42)
-data = data %>% filter(mean_accuracy > .95)
+#Filter out participants who got less than 17/18 correct (Starting with 60 real + 1 beta test, the beta and 14 others are excluded, leaving 46)
+data = data %>% filter(mean_accuracy > .93)
 data = data %>% filter(Group != "filler")
 ```
 
@@ -150,6 +153,7 @@ g1
 
 This model tests the effect ellipsis and iconicity:
 ```{r}
-model_1 = lmer(chance ~ Condition + Con_Length + Condition*Con_length + (1 + Item|workerid) + (1|Item), data = data)
+data$Con_Length = as.integer(data$Con_Length)
+model_1 = lmer(chance ~ Condition + Con_Length + Condition*Con_Length + (1 + Item|workerid) + (1|Item), data = data)
 summary(model_1)
 ```
