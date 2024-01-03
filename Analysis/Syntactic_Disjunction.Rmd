@@ -16,6 +16,7 @@ library('tidyverse')
 library('ggplot2')
 library('lme4')
 library('lmerTest')
+library('brms')
 ```
 
 
@@ -51,7 +52,7 @@ data = filter(data, data$workerid != 119 & data$workerid != 120 & data$workerid 
 
 
 # Data Cleaning
-There are a total of 9 attention checking control items, each of which should result in either close to 0% or close to 100% chance ratings from participants who were paying attention. The following code block excludes participants who did not rate at least 5 out of the 6 control items as within 10% of either 0% or 100%, whichever was accurate. 
+There are a total of 18 attention checking control items, each of which should result in either close to 0% or close to 100% chance ratings from participants who were paying attention. The following code block excludes participants who did not rate at least 17 out of the 18 control items as within 10% of either 0% or 100%, whichever was accurate. 
 ```{r}
 #Filter just the 100% control items
 cntr_100 = data %>% filter(Condition == 'And')
@@ -135,7 +136,7 @@ g2
 ### Plot
 g3 = ggplot(aes(Con_Length, Mean), data = graphdata_1)
 g3 = g3 + geom_violin() + geom_point(alpha=0.6) +
-  labs(title = 'Inclusivity Ratings by Disjunct Constituent Type', x = 'Constituent Length (# of words)', y = 'Mean Inclusivity Ratings (%)') + theme_bw()
+  labs(title = 'Inclusivity Ratings by Disjunct Constituent Length', x = 'Constituent Length (# of words)', y = 'Mean Inclusivity Ratings (%)') + theme_bw()
 g3
 ```
 
@@ -154,6 +155,38 @@ g1
 This model tests the effect ellipsis and iconicity:
 ```{r}
 data$Con_Length = as.integer(data$Con_Length)
-model_1 = lmer(chance ~ Condition + Con_Length + Condition*Con_Length + (1 + Item|workerid) + (1|Item), data = data)
-summary(model_1)
+data$Simp_Con = data$Condition
+data = data %>% mutate(Simp_Con = fct_recode(Simp_Con, 'C' = 'C_Proper'))
+data = data %>% mutate(Simp_Con = fct_recode(Simp_Con, 'C' = 'C_Pronoun'))
+
+model = brm(chance ~ Simp_Con + Con_Length + Simp_Con*Con_Length + (1 + Item|workerid) + (1|Item),
+             data = data,
+             family = gaussian,
+             iter = 4000,
+             cores = 4,
+             chains = 4,
+             warmup = 1000,
+             control = list(adapt_delta = 0.99, max_treedepth = 15),
+             seed = 4
+             )
+summary(model)
+plot(model)
+post_samples = as.data.frame(fixef(model, summary = F))
+nrow(filter(post_samples, post_samples$Simp_ConNP > 0))/12000
+
+
+model_2 = brm(chance ~ Simp_Con + Con_Length + Simp_Con*Con_Length + (1 + Item|workerid) + (1|Item),
+             data = data,
+             family = gaussian,
+             iter = 4000,
+             cores = 4,
+             chains = 4,
+             warmup = 1000,
+             control = list(adapt_delta = 0.99, max_treedepth = 15),
+             seed = 4
+             )
+summary(model_2)
+plot(model_2)
+post_samples_2 = as.data.frame(fixef(model_2, summary = F))
+nrow(filter(post_samples_2, post_samples_2$Simp_ConNP > 0))/12000
 ```
