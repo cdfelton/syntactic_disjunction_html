@@ -7,7 +7,6 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
 ```
 
 Load required libraries
@@ -152,7 +151,7 @@ g1
 
 
 
-This model tests the effect ellipsis and iconicity:
+This model tests the effect syntactic category and length:
 ```{r}
 data$Con_Length = as.integer(data$Con_Length)
 data$Simp_Con = data$Condition

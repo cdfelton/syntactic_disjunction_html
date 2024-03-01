@@ -1,0 +1,43 @@
+StartDate,EndDate,Status,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,DistributionChannel,UserLanguage,"Consent Form ",Practice_2,"Practice_3 ","Practice_4 ",Q1_A ,Q1_B,Q2_A,Q2_B,Q3_A,Q3_B,Q4_A,Q4_B,Q5_A,Q5_B,Q6_A,Q6_B,Q7_A,Q7_B,Q8_A,Q8_B,Q9_A,Q9_B,Q10_A,Q10_B,Q11_A,Q11_B,Q12_A,Q12_B,Q13,Q14,Q15,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24
+Start Date,End Date,Response Type,Progress,Duration (in seconds),Finished,Recorded Date,Response ID,Distribution Channel,User Language,"Letter of Information 
+
+Title of study: Language Understanding, Comprehension, and Learning in Adults  
+
+Investigator: Masoud Jasbi, Ph.D, Assistant Professor of Linguistics, UC Davis
+
+
+
+Introduction and Purpose
+
+You are being invited to participate in a research study. If you agree to be in this research, you will see some pictures/videos or read some text and answer multiple-choice or multiple-answer questions. Alternatively you may be asked to type in your answer or complete a sentence. We will not collect any information from you that would identify you or connect you to the data collected. The anonymous data collected will be stored on an online platform and will be shared with other researchers to increase scientific openness and transparency. There are no significant risks or benefits associated with this study.
+
+Compensation
+
+To thank you for participating in our study you will receive $3.75. Taking part in research is completely voluntary. You are free to decline to take part or stop participating in the project at any time. Whether or not you choose to take part or stop, there will be no penalty to you or loss of benefits to which you are otherwise entitled.
+
+Questions
+
+If you have any questions, please feel free to contact the investigator at jasbi@ucdavis.edu.
+
+
+
+By clicking on the button below you consent to the above and agree to participate in this research study.","There is a cat and a dog. 
+
+
+
+(To continue, select the card with both a cat and a dog)","There is an animal on the card. 
+
+
+
+(To continue, select all the cards except the blank card)","There is neither a cat nor a dog.
+
+
+
+(To continue, select the blank card)",There is a cat or a dog.,There is a cat or a dog.,There is a dog or an elephant.,There is a dog or an elephant.,There is an elephant or a cat.,There is an elephant or a cat.,There is  bird or a cat.,There is a bird or a cat.,There is a bird or a dog.,There is a bird or a dog.,There is a bird or an elephant.,There is  bird or an elephant.,There is a cat or there is a dog.,There is a cat or there is a dog.,There is a dog or there is an elephant.,There is a dog or there is an elephant.,There is an elephant or there is a cat.,There is an elephant or there is a cat.,There is a bird or there is  a cat.,There is  a bird or there is  a cat.,There is a bird or there is a dog.,There is a bird or there is a dog.,There is a bird or there is an elephant.,There is a bird or there is an elephant.,There is  cat and a dog.,There is a dog and an elephant.,There is an elephant and a cat.,There is  bird and there is a cat.,There is a bird and there is an elephant.,There is a bird and there is a dog.,There is neither a cat nor a dog.,There is neither a dog nor an elephant.,There is neither an elephant nor a cat.,There is neither a bird nor a cat.,There is neither a bird nor a dog.,There is neither a bird nor an elephant.
+"{""ImportId"":""startDate"",""timeZone"":""America/Denver""}","{""ImportId"":""endDate"",""timeZone"":""America/Denver""}","{""ImportId"":""status""}","{""ImportId"":""progress""}","{""ImportId"":""duration""}","{""ImportId"":""finished""}","{""ImportId"":""recordedDate"",""timeZone"":""America/Denver""}","{""ImportId"":""_recordId""}","{""ImportId"":""distributionChannel""}","{""ImportId"":""userLanguage""}","{""ImportId"":""QID1""}","{""ImportId"":""QID3""}","{""ImportId"":""QID57""}","{""ImportId"":""QID56""}","{""ImportId"":""QID5""}","{""ImportId"":""QID43""}","{""ImportId"":""QID9""}","{""ImportId"":""QID44""}","{""ImportId"":""QID12""}","{""ImportId"":""QID45""}","{""ImportId"":""QID15""}","{""ImportId"":""QID46""}","{""ImportId"":""QID18""}","{""ImportId"":""QID47""}","{""ImportId"":""QID21""}","{""ImportId"":""QID48""}","{""ImportId"":""QID8""}","{""ImportId"":""QID49""}","{""ImportId"":""QID11""}","{""ImportId"":""QID50""}","{""ImportId"":""QID14""}","{""ImportId"":""QID51""}","{""ImportId"":""QID17""}","{""ImportId"":""QID52""}","{""ImportId"":""QID20""}","{""ImportId"":""QID53""}","{""ImportId"":""QID23""}","{""ImportId"":""QID54""}","{""ImportId"":""QID24""}","{""ImportId"":""QID25""}","{""ImportId"":""QID26""}","{""ImportId"":""QID27""}","{""ImportId"":""QID28""}","{""ImportId"":""QID29""}","{""ImportId"":""QID36""}","{""ImportId"":""QID37""}","{""ImportId"":""QID38""}","{""ImportId"":""QID40""}","{""ImportId"":""QID39""}","{""ImportId"":""QID41""}"
+2024-02-19 17:52:10,2024-02-19 17:56:14,1,100,244,1,2024-02-19 17:56:16,R_5hzN9R6beEP6fEh,preview,EN,1,3,"1,2",4,"1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2",3,3,3,3,"1,2",3,4,4,4,4,4,4
+2024-02-19 17:59:09,2024-02-19 18:05:07,1,100,357,1,2024-02-19 18:05:08,R_3aPqEGdmGWKiUCM,preview,EN,1,3,"1,2,3",4,"1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2",3,3,3,3,3,3,4,4,4,4,4,4
+2024-02-19 21:39:24,2024-02-19 21:43:14,1,100,229,1,2024-02-19 21:43:15,R_1cvlw2bs29KLtu1,preview,EN,1,3,"1,2,3",4,"1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2","1,2,3","1,2","1,2","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2",3,3,3,3,3,3,4,4,"1,2,3",4,4,4
+2024-02-20 00:50:02,2024-02-20 00:56:19,1,100,376,1,2024-02-20 00:56:20,R_7igvA5JxHt5ZhKP,preview,EN,1,3,"1,2,3",4,"1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2",3,"1,2","1,2",3,3,3,3,3,3,4,4,4,4,4,4
+2024-02-20 11:59:16,2024-02-20 12:07:13,1,100,476,1,2024-02-20 12:07:14,R_13cKFNo49bFVMgV,preview,EN,1,3,"1,2,3",4,"1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1,2",3,3,3,3,3,3,4,4,4,4,4,4
+2024-02-20 13:21:43,2024-02-20 13:26:44,1,100,300,1,2024-02-20 13:26:46,R_7IPZg4cqevZjBcJ,preview,EN,1,3,"1,2,3",4,"1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3","1,2,3",3,3,3,3,3,3,4,4,4,4,4,4

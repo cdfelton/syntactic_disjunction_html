@@ -1,0 +1,37 @@
+QID,Condition,Connective,SynCat,Stimuli Sentence,Cards Offered,Pragmatic
+Q1_A.,experimental,OR,NP,The card has a cat or a dog.,Cat_Dog,3
+Q2_A,experimental,OR,NP,The card has a dog or an elephant.,Dog_Ele,3
+Q3_A,experimental,OR,NP,The card has an elephant or a cat.,Ele_Cat,3
+Q4_A,experimental,OR,NP,The card has a bird or a cat.,Bird_Cat,3
+Q5_A,experimental,OR,NP,The card has a bird or a dog.,Bird_Dog,3
+Q6_A,experimental,OR,NP,The card has a bird or an elephant.,Bird_Ele,3
+Q7_A,experimental,OR,CL,The card has a cat or the card has a dog.,Cat_Dog,3
+Q8_A,experimental,OR,CL,The card has a dog or the card has an elephant.,Dog_Ele,3
+Q9_A,experimental,OR,CL,The card has an elephant or the card has a cat.,Ele_Cat,3
+Q10_A,experimental,OR,CL,The card has a bird or the card has a cat.,Bird_Cat,3
+Q11_A,experimental,OR,CL,The card has a bird or the card has a dog,Bird_Dog,3
+Q12_A,experimental,OR,CL,The card has a bird or the card has an elephant.,Bird_Ele,3
+Q1_B,experimental,OR,NP,The card has a cat or a dog.,Cat_Dog,3
+Q2_B,experimental,OR,NP,The card has a dog or an elephant.,Dog_Ele,3
+Q3_B,experimental,OR,NP,The card has an elephant or a cat.,Ele_Cat,3
+Q4_B,experimental,OR,NP,The card has a bird or a cat.,Bird_Cat,3
+Q5_B,experimental,OR,NP,The card has a bird or a dog.,Bird_Dog,3
+Q6_B,experimental,OR,NP,The card has a bird or an elephant.,Bird_Ele,3
+Q7_B,experimental,OR,CL,The card has a cat or the card has a dog.,Cat_Dog,3
+Q8_B,experimental,OR,CL,The card has a dog or the card has an elephant.,Dog_Ele,3
+Q9_B,experimental,OR,CL,The card has an elephant or the card has a cat.,Ele_Cat,3
+Q10_B,experimental,OR,CL,The card has a bird or the card has a cat.,Bird_Cat,3
+Q11_B,experimental,OR,CL,The card has a bird or the card has a dog,Bird_Dog,3
+Q12_B,experimental,OR,CL,The card has a bird or the card has an elephant.,Bird_Ele,3
+Q13,control,AND,NP,The card has a cat and a dog.,Cat_Dog,3
+Q14,control,AND,NP,The card has a dog and an elephant.,Dog_Ele,3
+Q15,control,AND,NP,The card has an elephant and a cat.,Ele_Cat,3
+Q16,control,AND,CL,The card has a bird and the card has a cat.,Bird_Cat,3
+Q17,control,AND,CL,The card has a bird and the card has an elephant.,Bird_Ele,3
+Q18,control,AND,CL,The card has a bird and the card has a dog.,Bird_Dog,3
+Q19,control,NEITHER,NP,The card has neither a cat nor a dog.,Cat_Dog,4
+Q20,control,NEITHER,NP,The card has neither a dog nor an elephant.,Dog_Ele,4
+Q21,control,NEITHER,NP,The card has neither an elephant nor a cat.,Ele_Cat,4
+Q22,control,NEITHER,NP,The card has neither a bird nor a cat.,Bird_Cat,4
+Q23,control,NEITHER,NP,The card has neither a bird nor a dog.,Bird_Dog,4
+Q24,control,NEITHER,NP,The card has neither a bird nor an elephant.,Bird_Ele,4

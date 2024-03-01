@@ -1,0 +1,193 @@
+---
+title: "Syntactic Cards"
+author: "Casey D. Felton"
+date: '2024-02-01'
+output: html_document
+---
+# Libraries and Setup
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library('tidyverse')
+library('brms')
+library('ggplot2')
+library('performance')
+```
+
+# Read in and transform data:
+```{r}
+# import raw Qualtrics data from the raw_data folder of this repo
+df <- read.csv('/Users/caseyfelton/Desktop/Githubs/syntactic_disjunction_html/Cards_Task/Data/Real_Data.csv')  
+
+# import key document specifying information about each trial
+key <- read.csv("/Users/caseyfelton/Desktop/Githubs/syntactic_disjunction_html/Cards_Task/Analysis/4cards_key.csv")
+
+# delete unneeded headers in the Qualtrics data
+df <- df[-c(1,2),]
+
+# delete the incomplete experiment records
+df <- df %>% filter(Finished == 1)
+
+# delete experiment records that were previews for debugging purposes (comment this line out for beta data)
+df = df %>% filter(DistributionChannel != "preview")
+
+# delete columns that are not needed (This will already be done in the publicly available data-set in order to maintain participant privacy)
+    # Note "Progress"/"Finished" and "Status"/"Distribution" contain the same information; only one of each is kept
+df <- df %>% select(!StartDate:RecordedDate)
+df <- df %>% select(!DistributionChannel:Practice_4.)
+
+# transform the data into long format
+data_long <- df %>% pivot_longer(cols = starts_with('Q'), names_to = "QID", values_to = "choice")
+
+#Sanity Check (should return the number of recruited participants + 2 prolific credit tests on 2/24 at 3:45 PM and 4:03 PM (both will be excluded by attention check accuracy))
+nrow(table(data_long$ResponseId))
+```
+
+# Join data to key
+```{r}
+data_clean = left_join(data_long, key, by = 'QID')
+```
+
+
+# Score data for attention checks and selection of card with both animals
+```{r}
+# Scores accuracy on AND and NEITHER trials
+attention_check = data_clean %>% filter(Condition == 'control')
+attention_check$correct = ifelse(attention_check$choice == attention_check$Pragmatic, 1, 0)
+
+#Creates a table with the aggregated mean accuracy for each participant
+accuracy_table = attention_check %>% group_by(ResponseId) %>% summarise(mean_accuracy = mean(correct))
+
+#Join the accuracy table to the rest of the data
+data_clean = left_join(data_clean, accuracy_table, by = 'ResponseId')
+
+#Filter out participants who got less than 10/12 correct (Starting with 50 real + 2 beta test (all wrong answers), the betas and 1 other are excluded, leaving 49)
+data_clean = data_clean %>% filter(mean_accuracy > 0.80)
+data_clean = data_clean %>% filter(Connective != "NEITHER")
+
+```
+
+# Score Responses, remove objectivley incorrect responses to OR items after recording error rates and patterns
+```{r}
+data_clean$scored_choice = data_clean$choice
+data_clean$scored_choice[data_clean$scored_choice == '1'] = "First Animal Only"
+data_clean$scored_choice[data_clean$scored_choice == '2'] = "Second Animal Only"
+data_clean$scored_choice[data_clean$scored_choice == '1,2'] = "Exclusive Disjunction"
+data_clean$scored_choice[data_clean$scored_choice == '1,2,3'] = "Inclusive Disjunction"
+data_clean$scored_choice[data_clean$scored_choice == '3'] = "Conjunction"
+data_clean$scored_choice[data_clean$scored_choice == '4'] = "Neither"
+data_clean$scored_choice[data_clean$scored_choice == '1,3'] = "First Animal or Neither"
+
+# The table below summarized the response pattern for OR and AND
+table(data_clean$scored_choice, data_clean$Connective)
+
+data_clean$keep = ifelse((data_clean$Connective == 'OR' & data_clean$scored_choice == 'Exclusive Disjunction') | (data_clean$Connective == 'OR' & data_clean$scored_choice == 'Inclusive Disjunction') | (data_clean$Connective == 'AND'), 1, 0)
+
+data_clean = filter(data_clean, data_clean$keep == 1)
+```
+## Based on the table above, it seems like responses to AND trials were comparatively less noisy than responses to OR trials, with only 11 trials resulting in objective wrong (non-conjunctive) responses. Of those 11 trials, 9/11 of them were coordinated clauses, potentially suggesting more noise on clause items. 86 of the 1176 OR trials were answered objectively incorrectly, which approximately double the rate for the AND items, but the split between clause and NP items among these objectivley incorrect answers was more even 45 clause items to 41 NP items. 
+
+# Score for either implicature generation or correct conjunction reading
+```{r}
+data_clean$score = ifelse(((data_clean$Connective == 'AND' & data_clean$scored_choice == 'Conjunction') | (data_clean$Connective == 'OR' & data_clean$scored_choice == 'Exclusive Disjunction')), 1, 0)
+
+means = data_clean %>% 
+  group_by(Connective, SynCat) %>% 
+  summarise(Mean = mean(score))
+```
+
+
+# Bootstrap CIs:
+```{r}
+bootstrap <- function(connective, syncat){
+  data = data_clean %>% filter(data_clean$Connective == connective & data_clean$SynCat == syncat) 
+  bs_values = sample_n(data, nrow(data), replace = TRUE)$score
+  sample_mean = mean(bs_values)
+  return(sample_mean)
+}
+
+# Bootstrap for Or + Clauses
+OR_CL_samples = vector(mode = "integer", length = 5000)
+for (x in 1:5000) {
+  OR_CL_samples[x] = bootstrap(connective = 'OR', syncat = 'CL')
+}
+mean(OR_CL_samples)
+OR_CL_samples = sort(OR_CL_samples, decreasing = FALSE)
+Lower_Or_Cl = OR_CL_samples[125]
+Upper_Or_Cl = OR_CL_samples[4875]
+
+# Bootstrap for Or + Nps
+OR_NP_samples = vector(mode = "integer", length = 5000)
+for (x in 1:5000) {
+  OR_NP_samples[x] = bootstrap(connective = 'OR', syncat = 'NP')
+}
+mean(OR_NP_samples)
+OR_NP_samples = sort(OR_NP_samples, decreasing = FALSE)
+Lower_Or_Np = OR_NP_samples[125]
+Upper_Or_Np = OR_NP_samples[4875]
+
+# Bootstrap for AND + Clauses
+AND_CL_samples = vector(mode = "integer", length = 5000)
+for (x in 1:5000) {
+  AND_CL_samples[x] = bootstrap(connective = 'AND', syncat = 'CL')
+}
+mean(AND_CL_samples)
+AND_CL_samples = sort(AND_CL_samples, decreasing = FALSE)
+Lower_And_Cl = AND_CL_samples[125]
+Upper_And_Cl = AND_CL_samples[4875]
+
+
+# Bootstrap for AND + Nps
+AND_NP_samples = vector(mode = "integer", length = 5000)
+for (x in 1:5000) {
+  AND_NP_samples[x] = bootstrap(connective = 'AND', syncat = 'NP')
+}
+mean(AND_NP_samples)
+AND_NP_samples = sort(AND_NP_samples, decreasing = FALSE)
+Lower_And_Np = AND_NP_samples[125]
+Upper_And_Np = AND_NP_samples[4875]
+
+# Add CI to means
+means$Upper = c(Upper_And_Cl, Upper_And_Np, Upper_Or_Cl, Upper_Or_Np)
+means$Lower = c(Lower_And_Cl, Lower_And_Np, Lower_Or_Cl, Lower_Or_Np)
+```
+
+
+
+# Graph the means and CIs
+```{r}
+means$SynCat[means$SynCat == 'CL'] = 'Coordinated Clauses'
+means$SynCat[means$SynCat == 'NP'] = 'Coordinated NPs'
+g = ggplot(aes(x = Connective, y = Mean), data = means) +
+  geom_col(aes(fill = SynCat), position = "dodge") + labs(title = 'Implicature Rate/Conjunctive Response Rate', x = 'Connective Type', y = 'Implicature Rate/Conjunctive Response Rate', fill = 'Syntactic Category') +
+  geom_errorbar(width = .5,
+               aes(ymin = Lower, ymax = Upper, fill = SynCat),
+               position = position_dodge(0.9)) +
+  theme_bw()
+
+g
+```
+
+# Model specifically testing the effect of syntactic cateogry
+```{r}
+or_only = data_clean %>% filter(Connective == "OR")
+model_simple = model = brm(score ~ SynCat + (SynCat|ResponseId) + (1|Stimuli.Sentence),
+            family = bernoulli(link='logit'),
+            data = or_only,
+            warmup = 1000,
+            iter = 4000,
+            chains = 4,
+            cores = 4,
+            control = list(adapt_delta = 0.99, max_treedepth = 15),
+            seed = 4)
+summary(model_simple)
+
+plot(model_simple)
+conditional_effects(model_simple)
+
+variance_decomposition(model_simple)
+
+post_samples_model_simple = as.data.frame(fixef(model_simple, summary = F))
+nrow(filter(post_samples_model_simple, post_samples_model_simple$SynCatNP < 0))/12000
+```
+
